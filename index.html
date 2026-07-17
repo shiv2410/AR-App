@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>LABSOLUTIONS - Textbook AR Demo</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
+
+    #intro-screen {
+      position: fixed; inset: 0; background: #0f172a; color: white;
+      z-index: 999; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 24px;
+    }
+    #intro-screen h1 { font-size: 22px; margin-bottom: 8px; }
+    #intro-screen p { font-size: 14px; color: #cbd5e1; max-width: 340px; line-height: 1.5; }
+    #intro-screen img { width: 220px; margin: 20px 0; border-radius: 8px; border: 2px solid #334155; }
+    #start-btn {
+      margin-top: 16px; padding: 14px 32px; font-size: 16px; font-weight: bold;
+      background: #22c55e; color: #0f172a; border: none; border-radius: 8px; cursor: pointer;
+    }
+
+    #status-bar {
+      position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+      background: rgba(15,23,42,0.85); color: white; padding: 8px 16px;
+      border-radius: 20px; font-size: 13px; z-index: 100; display: none;
+    }
+
+    #back-btn {
+      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: rgba(15,23,42,0.85); color: white; padding: 10px 20px;
+      border-radius: 20px; font-size: 13px; z-index: 100; display: none; border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen shown before camera starts: this is the printable "textbook page" stand-in -->
+  <div id="intro-screen">
+    <h1>LABSOLUTIONS AR Demo</h1>
+    <p>Point your camera at the marker image below (print it, or open it on another screen) to see it come alive in AR.</p>
+    <img src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" alt="AR marker" />
+    <button id="start-btn">Start AR Camera</button>
+  </div>
+
+  <div id="status-bar">🔍 Point camera at the marker image</div>
+  <button id="back-btn">⬅ Back</button>
+
+  <a-scene id="ar-scene" style="display:none"
+    mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false; uiScanning: no; uiLoading: no;"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+      <a-asset-item id="model3d"
+        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf">
+      </a-asset-item>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+
+    <a-entity id="target" mindar-image-target="targetIndex: 0">
+      <!-- 3D model overlay: appears anchored on top of the tracked image -->
+      <a-gltf-model
+        rotation="0 0 0"
+        position="0 0 0.1"
+        scale="0.05 0.05 0.05"
+        src="#model3d"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 6000; easing: linear">
+      </a-gltf-model>
+    </a-entity>
+
+  </a-scene>
+
+  <script>
+    const introScreen = document.getElementById('intro-screen');
+    const startBtn = document.getElementById('start-btn');
+    const backBtn = document.getElementById('back-btn');
+    const statusBar = document.getElementById('status-bar');
+    const arScene = document.getElementById('ar-scene');
+
+    startBtn.addEventListener('click', async () => {
+      introScreen.style.display = 'none';
+      arScene.style.display = 'block';
+      statusBar.style.display = 'block';
+      backBtn.style.display = 'block';
+
+      const sceneEl = arScene;
+      // Wait for MindAR component to be ready, then start
+      if (sceneEl.hasLoaded) {
+        sceneEl.systems['mindar-image-system'].start();
+      } else {
+        sceneEl.addEventListener('loaded', () => {
+          sceneEl.systems['mindar-image-system'].start();
+        });
+      }
+
+      const targetEntity = document.getElementById('target');
+      targetEntity.addEventListener('targetFound', () => {
+        statusBar.textContent = '✅ Marker found!';
+      });
+      targetEntity.addEventListener('targetLost', () => {
+        statusBar.textContent = '🔍 Point camera at the marker image';
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      const sceneEl = arScene;
+      if (sceneEl.systems['mindar-image-system']) {
+        sceneEl.systems['mindar-image-system'].stop();
+      }
+      arScene.style.display = 'none';
+      statusBar.style.display = 'none';
+      backBtn.style.display = 'none';
+      introScreen.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
