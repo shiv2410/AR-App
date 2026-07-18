@@ -45,13 +45,13 @@ const CATALOG = [
   },
   {
     targetIndex: 1,
-    name: "Sample Page 2",
+    name: "Microscope",
     triggerImage: "assets/marker-previews/microsope.png",
     model: {
       src: "assets/models/microscope.glb",
-      position: "0 -0.25 0",
+      position: "0 0 0",
       rotation: "0 0 0",
-      scale: "0.05 0.05 0.05",
+      scale: "1 1 1",
       animated: true
     },
     title: "Microscope",
