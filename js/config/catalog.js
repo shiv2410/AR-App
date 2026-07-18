@@ -30,9 +30,9 @@ const CATALOG = [
   {
     targetIndex: 0,
     name: "Cell Interior",
-    triggerImage: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/marker-previews/cell structure.png",
+    triggerImage: "assets/marker-previews/cell structure.png",
     model: {
-      src: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/models/animal_cell.glb",
+      src: "assets/models/animal_cell.glb",
       position: "0 -0.25 0",
       rotation: "0 0 0",
       scale: "0.05 0.05 0.05",
@@ -46,9 +46,9 @@ const CATALOG = [
   {
     targetIndex: 1,
     name: "Sample Page 2",
-    triggerImage: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/marker-previews/microsope.png",
+    triggerImage: "assets/marker-previews/microsope.png",
     model: {
-      src: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/models/microscope.glb",
+      src: "assets/models/microscope.glb",
       position: "0 -0.25 0",
       rotation: "0 0 0",
       scale: "0.05 0.05 0.05",
