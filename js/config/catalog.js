@@ -17,7 +17,7 @@
 // DEMO MODE (works immediately, zero setup): points at MindAR's own
 // free sample .mind file and models, hosted on their CDN.
 // -----------------------------------------------------------------
-const MIND_FILE = "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/band.mind";
+const MIND_FILE = "assets/targets/targets.mind";
 
 // -----------------------------------------------------------------
 // YOUR REAL PROJECT: once you compile your own textbook pages,
@@ -29,33 +29,33 @@ const MIND_FILE = "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/
 const CATALOG = [
   {
     targetIndex: 0,
-    name: "Sample Page 1",
-    triggerImage: "https://hiukim.github.io/mind-ar-js-doc/assets/images/raccoon-2ef571baece2ee4724d0d19edf3de791.png",
+    name: "Cell Interior",
+    triggerImage: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/marker-previews/cell structure.png",
     model: {
-      src: "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/raccoon/scene.gltf",
+      src: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/models/animal_cell.glb",
       position: "0 -0.25 0",
       rotation: "0 0 0",
       scale: "0.05 0.05 0.05",
       animated: true
     },
-    title: "Raccoon Model (placeholder)",
-    description: "Stand-in for e.g. a Biology diagram — replace triggerImage + model with your own."
+    title: "Cell Structure",
+    description: "Shows the interior structure of a cell"
     // Real version: triggerImage: "assets/marker-previews/page-1.png"
     //               model.src:    "assets/models/model-1.gltf"
   },
   {
     targetIndex: 1,
     name: "Sample Page 2",
-    triggerImage: "https://hiukim.github.io/mind-ar-js-doc/assets/images/bear-3c737546fb0bde7a9c45b45ee999d132.png",
+    triggerImage: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/marker-previews/microsope.png",
     model: {
-      src: "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/bear/scene.gltf",
+      src: "/Users/sempaishivvi/Labsolutions/AR/AR-App/assets/models/microscope.glb",
       position: "0 -0.25 0",
       rotation: "0 0 0",
       scale: "0.05 0.05 0.05",
       animated: true
     },
-    title: "Bear Model (placeholder)",
-    description: "Stand-in for e.g. a Physics apparatus diagram — replace triggerImage + model with your own."
+    title: "Microscope",
+    description: "Shows a detailed model of a compound microscope"
     // Real version: triggerImage: "assets/marker-previews/page-2.png"
     //               model.src:    "assets/models/model-2.gltf"
   }
