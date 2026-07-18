@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- 1. Wire the .mind file into the scene ----------
   arScene.setAttribute(
-    'mindar-image',
-    `imageTargetSrc: ${window.MIND_FILE}; autoStart: false; uiScanning: no; uiLoading: no;`
-  );
+  'mindar-image',
+  `imageTargetSrc: ${window.MIND_FILE}; autoStart: false; uiScanning: no; uiLoading: no; filterMinCF: 0.0001; filterBeta: 0.001;`
+);
 
   // ---------- 2. Build intro screen preview cards ----------
   window.CATALOG.forEach(item => {
