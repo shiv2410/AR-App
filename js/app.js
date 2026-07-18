@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modelEl.setAttribute('scale', item.model.scale);
     if (item.model.animated) modelEl.setAttribute('animation-mixer', '');
 
+    modelEl.setAttribute('gesture-handler', ''); // pinch-zoom / drag-rotate / two-finger pan
     targetEntity.appendChild(modelEl);
     targetsContainer.appendChild(targetEntity);
 
@@ -65,12 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
       infoDesc.textContent = item.description;
       infoPanel.style.display = 'block';
       requestAnimationFrame(() => infoPanel.classList.add('visible'));
+      const handler = modelEl.components['gesture-handler'];        // new
+      if (handler) handler.isVisible = true;  // New
     });
     targetEntity.addEventListener('targetLost', () => {
       statusBar.textContent = '🔍 Point camera at any catalog page';
       infoPanel.classList.remove('visible');
       setTimeout(() => { infoPanel.style.display = 'none'; }, 250);
     });
+    const handler = modelEl.components['gesture-handler'];        // ADD THIS
+  if (handler) {                                                 // ADD THIS
+    handler.isVisible = false;                                   // ADD THIS
+    handler.reset();                                              // ADD THIS
+  } 
   });
 
   // ---------- 5. Start / stop camera ----------
